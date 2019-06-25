@@ -38,6 +38,7 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
             Console.WriteLine($"Diet plan = [{string.Join(", ", dietPlans)}]");
             Console.WriteLine(result);
         }
+        //following function will return array of indices(indicating diet plan) with value same as given value. 
         static int[] frequency(int[] a, int x)
         {
             //int count = 0;
@@ -61,12 +62,18 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
             int[] c1 = frequency(carbs, carbs.Max());
             int[] f = frequency(fat, fat.Min());
             int[] f1 = frequency(fat, fat.Max());
+            //now each of above array will contain indices of diets eligible. will contain more than one in case of ties.
+            //following will calculate protein ammount in each diet.
             for (int i = 0; i < protein.Length; i++)
             {
                 cal[i] = 9 * fat[i] + 5 * (protein[i] + carbs[i]);
             }
             int[] t = frequency(cal, cal.Min());
             int[] t1 = frequency(cal, cal.Max());
+            /*Now the logic is simple we will first check first character of given string and will check whether length of it's 
+            array is grater than 1 or not if not then the first element is our answer if no ww will go for next char if next char
+            has index which was present in earlier array then that index is our answer if not then go for next char or first element from
+            previous array is our answer.*/
             for (int i = 0; i < dietPlans.Length; i++)
             {
                 char[] diet = dietPlans[i].ToCharArray();
@@ -258,27 +265,6 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                     }
                 }
             }
-            /*
-            foreach (int i in cal) Console.Write(i+" ");
-            Console.WriteLine();
-            foreach (int i in p) Console.Write(i);
-            Console.WriteLine();
-            foreach (int i in p1) Console.Write(i);
-            Console.WriteLine();
-            foreach (int i in c) Console.Write(i);
-            Console.WriteLine();
-            foreach (int i in c1) Console.Write(i);
-            Console.WriteLine();
-            foreach (int i in f) Console.Write(i);
-            Console.WriteLine();
-            foreach (int i in f1) Console.Write(i);
-            Console.WriteLine();
-            foreach (int i in t) Console.Write(i);
-            Console.WriteLine();
-            foreach (int i in t1) Console.Write(i);
-            Console.WriteLine();
-            
-            foreach (int i in op) Console.Write(i);*/
             return op;
         }
     }

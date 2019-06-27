@@ -45,20 +45,20 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise3
             Frequency frequency = new Frequency();
             int[] calories = new int[protein.Length];
             int[] outputDiets = new int[dietPlans.Length];
-            int[] p = frequency.FrequencyCalculator( protein,protein.Min());
-            int[] p1 = frequency.FrequencyCalculator(protein, protein.Max());
-            int[] c = frequency.FrequencyCalculator(carbs, carbs.Min());
-            int[] c1 = frequency.FrequencyCalculator(carbs, carbs.Max());
-            int[] f = frequency.FrequencyCalculator(fat, fat.Min());
-            int[] f1 = frequency.FrequencyCalculator(fat, fat.Max());
+            int[] dietsWithMinimumProtein = frequency.FrequencyCalculator( protein,protein.Min());
+            int[] dietsWithMaximumProtein = frequency.FrequencyCalculator(protein, protein.Max());
+            int[] dietsWithMinimumCarbs = frequency.FrequencyCalculator(carbs, carbs.Min());
+            int[] dietsWithMaximumCarbs = frequency.FrequencyCalculator(carbs, carbs.Max());
+            int[] dietsWithMinimumFat = frequency.FrequencyCalculator(fat, fat.Min());
+            int[] dietsWithMaximumFat = frequency.FrequencyCalculator(fat, fat.Max());
             //now each of above array will contain indices of diets eligible. will contain more than one in case of ties.
             //following will calculate protein ammount in each diet.
             for (int i = 0; i < protein.Length; i++)
             {
                 calories[i] = 9 * fat[i] + 5 * (protein[i] + carbs[i]);
             }
-            int[] t = frequency.FrequencyCalculator(calories, calories.Min());
-            int[] t1 = frequency.FrequencyCalculator(calories, calories.Max());
+            int[] dietsWithMinimumCalories = frequency.FrequencyCalculator(calories, calories.Min());
+            int[] dietsWithMaximumCalories = frequency.FrequencyCalculator(calories, calories.Max());
             /*Now the logic is simple we will first check first character of given string and will check whether length of it's 
             array is grater than 1 or not if not then the first element is our answer if no ww will go for next char if next char
             has index which was present in earlier array then that index is our answer if not then go for next char or first element from
@@ -67,183 +67,183 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise3
             {
                 char[] diet = dietPlans[i].ToCharArray();
                 int j = 0;
-                IList<int> l = new List<int>();
-                bool fl = false;
+                IList<int> dietsTillNow = new List<int>();
+                bool flag = false;
                 while (j < diet.Length)
                 {
 
                     if (diet[j] == 'p')
                     {
-                        if (p.Length > 1)
+                        if (dietsWithMinimumProtein.Length > 1)
                         {
-                            foreach (int k in p) l.Add(k);
-                            fl = true;
+                            foreach (int k in dietsWithMinimumProtein) dietsTillNow.Add(k);
+                            flag = true;
                             j++;
                         }
                         else
                         {
-                            if (fl && !l.Contains(p[0]))
+                            if (flag && !dietsTillNow.Contains(dietsWithMinimumProtein[0]))
                             {
-                                outputDiets[i] = l[0];
+                                outputDiets[i] = dietsTillNow[0];
                                 j++;
                             }
                             else
                             {
-                                outputDiets[i] = p[0];
+                                outputDiets[i] = dietsWithMinimumProtein[0];
                                 break;
                             }
                         }
                     }
                     else if (diet[j] == 'P')
                     {
-                        if (p1.Length > 1)
+                        if (dietsWithMaximumProtein.Length > 1)
                         {
                             j++;
-                            foreach (int k in p1) l.Add(k);
-                            fl = true;
+                            foreach (int k in dietsWithMaximumProtein) dietsTillNow.Add(k);
+                            flag = true;
                         }
                         else
                         {
-                            if (fl && !l.Contains(p1[0]))
+                            if (flag && !dietsTillNow.Contains(dietsWithMaximumProtein[0]))
                             {
-                                outputDiets[i] = l[0];
+                                outputDiets[i] = dietsTillNow[0];
                                 j++;
                             }
                             else
                             {
-                                outputDiets[i] = p1[0];
+                                outputDiets[i] = dietsWithMaximumProtein[0];
                                 break;
                             }
                         }
                     }
                     else if (diet[j] == 'c')
                     {
-                        if (c.Length > 1)
+                        if (dietsWithMinimumCarbs.Length > 1)
                         {
                             j++;
-                            foreach (int k in c) l.Add(k);
-                            fl = true;
+                            foreach (int k in dietsWithMinimumCarbs) dietsTillNow.Add(k);
+                            flag = true;
                         }
                         else
                         {
-                            if (fl && !l.Contains(c[0]))
+                            if (flag && !dietsTillNow.Contains(dietsWithMinimumCarbs[0]))
                             {
-                                outputDiets[i] = l[0];
+                                outputDiets[i] = dietsTillNow[0];
                                 j++;
                             }
                             else
                             {
-                                outputDiets[i] = c[0];
+                                outputDiets[i] = dietsWithMinimumCarbs[0];
                                 break;
                             }
                         }
                     }
                     else if (diet[j] == 'C')
                     {
-                        if (c1.Length > 1)
+                        if (dietsWithMaximumCarbs.Length > 1)
                         {
                             j++;
-                            foreach (int k in c1) l.Add(k);
-                            fl = true;
+                            foreach (int k in dietsWithMaximumCarbs) dietsTillNow.Add(k);
+                            flag = true;
                         }
                         else
                         {
-                            if (fl && !l.Contains(c1[0]))
+                            if (flag && !dietsTillNow.Contains(dietsWithMaximumCarbs[0]))
                             {
-                                outputDiets[i] = l[0];
+                                outputDiets[i] = dietsTillNow[0];
                                 j++;
                             }
                             else
                             {
-                                outputDiets[i] = c1[0];
+                                outputDiets[i] = dietsWithMaximumCarbs[0];
                                 break;
                             }
                         }
                     }
                     else if (diet[j] == 'f')
                     {
-                        if (f.Length > 1)
+                        if (dietsWithMinimumFat.Length > 1)
                         {
                             j++;
-                            foreach (int k in f) l.Add(k);
-                            fl = true;
+                            foreach (int k in dietsWithMinimumFat) dietsTillNow.Add(k);
+                            flag = true;
                         }
                         else
                         {
-                            if (fl && !l.Contains(f[0]))
+                            if (flag && !dietsTillNow.Contains(dietsWithMinimumFat[0]))
                             {
-                                outputDiets[i] = l[0];
+                                outputDiets[i] = dietsTillNow[0];
                                 j++;
                             }
                             else
                             {
-                                outputDiets[i] = f[0];
+                                outputDiets[i] = dietsWithMinimumFat[0];
                                 break;
                             }
                         }
                     }
                     else if (diet[j] == 'F')
                     {
-                        if (f1.Length > 1)
+                        if (dietsWithMaximumFat.Length > 1)
                         {
                             j++;
-                            foreach (int k in f1) l.Add(k);
-                            fl = true;
+                            foreach (int k in dietsWithMaximumFat) dietsTillNow.Add(k);
+                            flag = true;
                         }
                         else
                         {
-                            if (fl && !l.Contains(f1[0]))
+                            if (flag && !dietsTillNow.Contains(dietsWithMaximumFat[0]))
                             {
-                                outputDiets[i] = l[0];
+                                outputDiets[i] = dietsTillNow[0];
                                 j++;
                             }
                             else
                             {
-                                outputDiets[i] = f1[0];
+                                outputDiets[i] = dietsWithMaximumFat[0];
                                 break;
                             }
                         }
                     }
                     else if (diet[j] == 't')
                     {
-                        if (t.Length > 1)
+                        if (dietsWithMinimumCalories.Length > 1)
                         {
                             j++;
-                            foreach (int k in t) l.Add(k);
-                            fl = true;
+                            foreach (int k in dietsWithMinimumCalories) dietsTillNow.Add(k);
+                            flag = true;
                         }
                         else
                         {
-                            if (fl && !l.Contains(t[0]))
+                            if (flag && !dietsTillNow.Contains(dietsWithMinimumCalories[0]))
                             {
-                                outputDiets[i] = l[0];
+                                outputDiets[i] = dietsTillNow[0];
                                 j++;
                             }
                             else
                             {
-                                outputDiets[i] = t[0];
+                                outputDiets[i] = dietsWithMinimumCalories[0];
                                 break;
                             }
                         }
                     }
                     else if (diet[j] == 'T')
                     {
-                        if (t1.Length > 1)
+                        if (dietsWithMaximumCalories.Length > 1)
                         {
                             j++;
-                            foreach (int k in t1) l.Add(k);
-                            fl = true;
+                            foreach (int k in dietsWithMaximumCalories) dietsTillNow.Add(k);
+                            flag = true;
                         }
                         else
                         {
-                            if (fl && !l.Contains(t1[0]))
+                            if (flag && !dietsTillNow.Contains(dietsWithMaximumCalories[0]))
                             {
-                                outputDiets[i] = l[0];
+                                outputDiets[i] = dietsTillNow[0];
                                 j++;
                             }
                             else
                             {
-                                outputDiets[i] = t1[0];
+                                outputDiets[i] = dietsWithMaximumCalories[0];
                                 break;
                             }
                         }
